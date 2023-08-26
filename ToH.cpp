@@ -22,8 +22,7 @@ class Tower {
 			for (; tempSize > 0; tempSize--) {
 				arr[++top] = top;
 			}
-			cout << "Source tower built:" << endl;
-			display();
+			cout << "**Source tower built**" << endl;
 		}
 		
 		void display() {
@@ -43,14 +42,14 @@ class Tower {
 
 		void push(int block) {
 			if (top < size) {
-				arr[++top] = block;
+				arr[top++] = block;
 		}
     }
 };
 
 int  main() {
-	int capacity; // var containing capacity of the tower, i.e. A tower of capacity n will have n blocks to be moved.A Working Tower of Hanoi Program
-	cout << "" << endl
+	int capacity; // var containing capacity of the tower, i.e. A tower of capacity n will have n blocks to be moved.
+	cout << "A Working Tower of Hanoi Program" << endl
 		<< "Enter Tower Capacity: "; // used concept of cascading i/o
 	cin >> capacity;
 	
@@ -62,26 +61,26 @@ int  main() {
 	// Destination Tower
 	Tower D(capacity);
 	
-	ToH(capacity, S, H, D);
-	
-	return 0;
-}
-
-void ToH(int cap, Tower S, Tower H, Tower D) {
 	cout<< "Source status: "; S.display();
 	cout<< "Helper status: "; H.display();
 	cout<< "Destination status: "; D.display();
 	cout << endl;
 	
-	if (cap > 0) {
-        ToH(cap - 1, S, D, H); // Move n-1 disks from source to helper
-        int block = S.pop(); // Move the nth disk from source to destination
-        D.push(block);
-        cout << "Moved block " << block << " from Source to Destination." << endl;
-        ToH(cap - 1, H, S, D); // Move n-1 disks from helper to destination
-		
+	ToH(capacity, S, H, D);
+	
 	cout<< "Source status: "; S.display();
 	cout<< "Helper status: "; H.display();
 	cout<< "Destination status: "; D.display();
-    }
+	
+	return 0;
 }
+
+	void ToH(int cap, Tower S, Tower H, Tower D) {
+		if (cap > 0) {
+			ToH(cap - 1, S, D, H); // Move n-1 disks from source to helper
+				int block = S.pop(); // Move the nth disk from source to destination
+				D.push(block);
+				cout << "Moved block " << block << " from Source to Destination." << endl;
+			ToH(cap - 1, H, S, D); // Move n-1 disks from helper to destination
+		}
+	}
