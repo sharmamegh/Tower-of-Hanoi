@@ -35,6 +35,17 @@ class Tower {
 				cout << endl;
 			}
 		}
+		
+		int pop() {
+			if (top == 0) return 0;
+			return arr[top--];
+		}
+
+		void push(int block) {
+			if (top < size) {
+				arr[++top] = block;
+		}
+    }
 };
 
 int  main() {
@@ -57,9 +68,20 @@ int  main() {
 }
 
 void ToH(int cap, Tower S, Tower H, Tower D) {
-	
-	
 	cout<< "Source status: "; S.display();
 	cout<< "Helper status: "; H.display();
 	cout<< "Destination status: "; D.display();
+	cout << endl;
+	
+	if (cap > 0) {
+        ToH(cap - 1, S, D, H); // Move n-1 disks from source to helper
+        int block = S.pop(); // Move the nth disk from source to destination
+        D.push(block);
+        cout << "Moved block " << block << " from Source to Destination." << endl;
+        ToH(cap - 1, H, S, D); // Move n-1 disks from helper to destination
+		
+	cout<< "Source status: "; S.display();
+	cout<< "Helper status: "; H.display();
+	cout<< "Destination status: "; D.display();
+    }
 }
